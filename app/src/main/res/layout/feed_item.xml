@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/background_item"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4804de"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4169e1"
+        android:textStyle="italic"
+        android:textSize="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@id/details" />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_alignTop="@id/details"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/comment"
+        android:gravity="right"
+        android:layout_marginRight="5dip"
+        android:textSize="15dp"
+        android:textColor="#34b3a0"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/category"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+</RelativeLayout>
