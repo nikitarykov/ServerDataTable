@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            new DataLoader().execute(this);
         } else {
             try {
                 File cacheDir = new File(getApplicationContext().getCacheDir(), "http");
@@ -61,15 +60,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        HttpResponseCache cache = HttpResponseCache.getInstalled();
-        if (cache != null) {
-            cache.flush();
-        }
+        new DataLoader().execute(this);
     }
 
     @Override

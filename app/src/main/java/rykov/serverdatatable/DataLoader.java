@@ -1,5 +1,9 @@
 package rykov.serverdatatable;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.http.HttpResponseCache;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
@@ -34,7 +38,18 @@ public class DataLoader extends AsyncTask<MainActivity, Void, List<HashMap<Strin
             URL url = new URL("http://mobile165.hr.phobos.work/list");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setUseCaches(true);
-            InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            InputStream inputStream;
+            if (isConnected()) {
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+                HttpResponseCache cache = HttpResponseCache.getInstalled();
+                if (cache != null) {
+                    cache.flush();
+                }
+            } else {
+                int maxStale = 60 * 60 * 24 * 28;
+                urlConnection.addRequestProperty("Cache-Control", "max-stale=" + maxStale);
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            }
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             int b = inputStream.read();
             while(b != -1) {
@@ -84,6 +99,13 @@ public class DataLoader extends AsyncTask<MainActivity, Void, List<HashMap<Strin
             }
         }
         return result;
+    }
+
+    protected boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     protected void onPostExecute(List<HashMap<String,String>> result) {
